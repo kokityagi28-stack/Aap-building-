@@ -1,0 +1,160 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Represents a creator or a client on the platform.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "role": { "type": "string", "enum": ["creator", "client"] },
+        "bio": { "type": "string" },
+        "skills": { "type": "array", "items": { "type": "string" } },
+        "categories": { "type": "array", "items": { "type": "string" } },
+        "socialLinks": { "type": "object" },
+        "rating": { "type": "number" },
+        "reviewCount": { "type": "number" },
+        "followerCount": { "type": "number" },
+        "followingCount": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "displayName", "role"]
+    },
+    "Portfolio": {
+      "title": "Portfolio Item",
+      "description": "A piece of work showcased by a creator.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "creatorId": { "type": "string" },
+        "type": { "type": "string", "enum": ["video", "image", "audio"] },
+        "url": { "type": "string" },
+        "thumbnailUrl": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "likesCount": { "type": "number" },
+        "commentsCount": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["creatorId", "type", "url", "title"]
+    },
+    "Like": {
+      "title": "Like",
+      "description": "Represents a user liking a portfolio item.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "portfolioId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "portfolioId"]
+    },
+    "Comment": {
+      "title": "Comment",
+      "description": "A comment on a portfolio item.",
+      "type": "object",
+      "properties": {
+        "portfolioId": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "userPhoto": { "type": "string" },
+        "text": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["portfolioId", "userId", "text"]
+    },
+    "Follow": {
+      "title": "Follow",
+      "description": "Represents a user following another user.",
+      "type": "object",
+      "properties": {
+        "followerId": { "type": "string" },
+        "followingId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["followerId", "followingId"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "A review given to a creator by a client.",
+      "type": "object",
+      "properties": {
+        "creatorId": { "type": "string" },
+        "clientId": { "type": "string" },
+        "clientName": { "type": "string" },
+        "rating": { "type": "number" },
+        "comment": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["creatorId", "clientId", "rating"]
+    },
+    "Message": {
+      "title": "Message",
+      "description": "A direct message between users.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "senderId": { "type": "string" },
+        "receiverId": { "type": "string" },
+        "text": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["senderId", "receiverId", "text"]
+    },
+    "Conversation": {
+      "title": "Conversation",
+      "description": "Metadata for a message thread.",
+      "type": "object",
+      "properties": {
+        "participants": { "type": "array", "items": { "type": "string" } },
+        "lastMessage": { "type": "string" },
+        "lastMessageAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["participants"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles for both creators and clients."
+    },
+    "/portfolios/{portfolioId}": {
+      "schema": "Portfolio",
+      "description": "Creator's work samples."
+    },
+    "/portfolios/{portfolioId}/likes/{userId}": {
+      "schema": "Like",
+      "description": "Likes on a portfolio item."
+    },
+    "/portfolios/{portfolioId}/comments/{commentId}": {
+      "schema": "Comment",
+      "description": "Comments on a portfolio item."
+    },
+    "/users/{userId}/followers/{followerId}": {
+      "schema": "Follow",
+      "description": "Users following this user."
+    },
+    "/users/{userId}/following/{followingId}": {
+      "schema": "Follow",
+      "description": "Users this user is following."
+    },
+    "/users/{creatorId}/reviews/{reviewId}": {
+      "schema": "Review",
+      "description": "Reviews for a creator."
+    },
+    "/conversations/{conversationId}": {
+      "schema": "Conversation",
+      "description": "Message threads."
+    },
+    "/conversations/{conversationId}/messages/{messageId}": {
+      "schema": "Message",
+      "description": "Actual messages in a thread."
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "Creator Marketplace",
+  "description": "A professional niche platform where content creators showcase their portfolios and clients hire them directly. Features visual feeds, skill-based search, and direct messaging.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "Firebase"
+  ]
+}

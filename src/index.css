@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Outfit:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "DM Serif Display", serif;
+  --font-display: "DM Serif Display", serif;
+  
+  --color-brand-bg: #FAF9F6;
+  --color-brand-ink: #1A1A1A;
+  --color-brand-border: rgba(0, 0, 0, 0.05);
+}
+
+@layer base {
+  body {
+    @apply bg-brand-bg text-brand-ink font-sans antialiased;
+  }
+}
+
+@layer components {
+  .artistic-shadow {
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .glass-nav {
+    @apply bg-white/80 backdrop-blur-xl border border-black/10;
+  }
+  
+  .btn-primary {
+    @apply px-8 py-3 bg-brand-ink text-white rounded-xl font-bold hover:bg-zinc-800 transition-all active:scale-[0.98] flex items-center justify-center gap-2 uppercase text-[10px] tracking-widest;
+  }
+  
+  .btn-secondary {
+    @apply px-8 py-3 border border-brand-ink/10 text-brand-ink rounded-xl font-bold hover:bg-black/5 transition-all active:scale-[0.98] flex items-center justify-center gap-2 uppercase text-[10px] tracking-widest;
+  }
+  
+  .serif-italic {
+    @apply font-serif italic tracking-tight;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.1);
+  border-radius: 10px;
+}
+
